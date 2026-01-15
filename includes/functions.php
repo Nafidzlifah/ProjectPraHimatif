@@ -131,7 +131,13 @@ function getJsonPath($filename) {
     $user_id = getUserId();
     $parts = pathinfo($filename);
     $name = $parts['filename'] . '_' . $user_id . '.' . $parts['extension'];
-    return __DIR__ . '/../data/' . $name;
+    
+    $dir = __DIR__ . '/../data';
+    if (!is_dir($dir)) {
+        mkdir($dir, 0777, true);
+    }
+    
+    return $dir . '/' . $name;
 }
 
 function syncConfigToJson($data) {
